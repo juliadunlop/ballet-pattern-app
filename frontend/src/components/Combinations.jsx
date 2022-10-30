@@ -34,6 +34,7 @@ function Combinations() {
           id={index}
           title={cardItem.title}
           content={cardItem.content}
+          buttonId={cardItem.buttonId}
           newCard={addCard}
           onDelete={deleteCard}
           setNum={cardItem.setNum}

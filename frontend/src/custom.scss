@@ -1,0 +1,48 @@
+$primary-color: #BAD1C2;
+$accent-color:  #f5ba13;
+$text-color: rgb(6, 5, 5);
+
+$body-bg:$primary-color;
+  
+  .navbar {
+    background-color:$accent-color;
+    font-family: Helvetica, sans-serif;
+  }
+  
+  footer {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+  }
+  
+  footer p {
+    color: $text-color;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .card {
+    border-color: $accent-color;
+    background-color: #fff;
+    box-shadow: 0 2px 5px #ccc;
+    width: 300px;
+    margin: 16px;
+    float: left;
+  }
+
+  .card h2 {
+    font-size: 1.1em;
+    margin-bottom: 6px;
+  }
+  .card p {
+    font-size: 1em;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  @import "~bootstrap/scss/bootstrap";

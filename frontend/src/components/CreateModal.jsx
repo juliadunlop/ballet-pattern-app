@@ -3,34 +3,45 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
 import { Form } from "react-bootstrap";
+import CheckIcon from '@mui/icons-material/Check';
 
 function CreateModal(props) {
   const [finalCombo, setFinalCombo] = useState({
     title: "",
     content: "",
-    link: "/",
-    linkTitle: "View",
+    buttonId: "",
     setNum:""
   });
   const [combo, setCombo] = useState([]);
   const [count, setCount] = useState(1);
   const [sets, setSet] = useState(1);
+  const [comboId, setComboId] = useState([]);
 
 function handleClick(event) {
-  const {name} = event.target;
+  const {name, id} = event.target;
   if(count > 7) {
     setCount(1);
-    setSet(sets+1)
+    setSet(sets+1);
+    setCombo(prevCombo => {
+      return[...prevCombo, event.target.name]
+    });
+
+    setComboId(prevComboId => {
+        return[...prevComboId, event.target.id]
+      });
+
+  
+  } else {
+
+    setCount(count+1)
+
     setCombo(prevCombo => {
       return[...prevCombo, [name]]
     });
-  } else {
-    setCount(count+1)
-    setCombo(prevCombo => {
-      return[...prevCombo, [name]]
+
+    setComboId(prevComboId => {
+      return[...prevComboId, [id]]
     });
   }
   }
@@ -49,14 +60,16 @@ function handleClick(event) {
   function submitCombo(event){
     finalCombo.setNum = sets-1;
     finalCombo.content = combo;
+    finalCombo.buttonId = comboId;
     props.submitCard(finalCombo);
     setFinalCombo({
       title: "",
       content: "",
-      link: "/",
-      setNum: ""
+      setNum: "",
+      buttonId: ""
     });
     setCombo([]);
+    setComboId([])
     setCount(1);
     setSet(1);
     props.onHide();
@@ -89,7 +102,7 @@ function handleClick(event) {
       <Row className="row" >
       <Col></Col>
         <Col className="textHeading">
-         <Button onClick={handleClick} name="Front">Front</Button>
+         <Button onClick={handleClick} name=" Front" id="front">Front</Button>
         </Col>
         <Col> 
         <h5> Set = {sets} </h5>
@@ -99,22 +112,22 @@ function handleClick(event) {
 
       <Row>
       <Col className="textHeading">
-        <Button onClick={handleClick} name="Inside">Inside</Button>
+        <Button onClick={handleClick} name=" Inside" id="inside">Inside</Button>
       </Col>
       <Col className="textHeading">
-        <Row> <Button onClick={handleClick} name="Fifth Front">Fifth Front</Button></Row>
-        <Row> <Button onClick={handleClick} name="First">First</Button></Row>
-        <Row> <Button onClick={handleClick} name="Fifth Back">Fifth Back</Button></Row>
+        <Row> <Button onClick={handleClick} name=" Fifth Front" id="fifthfront">Fifth Front</Button></Row>
+        <Row> <Button onClick={handleClick} name=" First" id="first">First</Button></Row>
+        <Row> <Button onClick={handleClick} name=" Fifth Back"id="fifthback">Fifth Back</Button></Row>
       </Col>
       <Col className="textHeading">
-        <Button onClick={handleClick} name="Side">Side</Button>
+        <Button onClick={handleClick} name="Side " id="side">Side</Button>
       </Col>
       </Row>
      
       <Row>
         <Col> </Col>
         <Col className="textHeading">
-          <Button onClick={handleClick} name="Back">Back</Button>
+          <Button onClick={handleClick} name=" Back" id="back">Back</Button>
         </Col>
         <Col></Col>
       </Row>
@@ -126,11 +139,18 @@ function handleClick(event) {
         name="content" />
       </Form.Group>
 
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Control 
+        onChange={handleChange} 
+        value={comboId} 
+        name="buttonId" />
+      </Form.Group>
+
     </Form>
 
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={submitCombo}>Submit</Button>
+        <Button variant="light" onClick={submitCombo}><CheckIcon /></Button>
       </Modal.Footer>
     </Modal>
   );

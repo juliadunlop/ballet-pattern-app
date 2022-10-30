@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import CheckIcon from '@mui/icons-material/Check';
+import ViewButtons from './ViewButtons';
+
 
 function ViewModal(props) {
   return (
@@ -19,6 +22,9 @@ function ViewModal(props) {
       </Modal.Header>
       <Modal.Body>
       <Row>
+        <ViewButtons id={props.id}/>
+      </Row>
+      <Row>
           <Col><p>Combination:</p></Col>
           <Col>{props.content}</Col>
         </Row>
@@ -26,9 +32,13 @@ function ViewModal(props) {
           <Col><p>Sets of 8:</p></Col>
           <Col>{props.sets}</Col>
         </Row>
+        <Row>
+          <Col><p>Button Id:</p></Col>
+          <Col>{props.buttonId}</Col>
+        </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button variant="light" onClick={props.onHide}><CheckIcon /></Button>
       </Modal.Footer>
     </Modal>
   );
