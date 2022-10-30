@@ -8,6 +8,9 @@ import ViewButtons from './ViewButtons';
 
 
 function ViewModal(props) {
+  const viewId = "view"
+  const id = props.id + viewId;
+
   return (
     <Modal
       {...props}
@@ -22,7 +25,7 @@ function ViewModal(props) {
       </Modal.Header>
       <Modal.Body>
       <Row>
-        <ViewButtons id={props.id}/>
+        <ViewButtons id={id} buttonId={props.buttonId}/>
       </Row>
       <Row>
           <Col><p>Combination:</p></Col>

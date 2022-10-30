@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 function ComboCard(props) {
   const cardId = props.id;
+
   const [modalShow, setModalShow] = React.useState(false);
 
   function handleClick() {
