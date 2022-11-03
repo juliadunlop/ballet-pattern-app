@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import CheckIcon from '@mui/icons-material/Check';
-import ViewButtons from './ViewButtons';
+import ViewButtonsAnd from './ViewButtonsAnd';
 
 
 function ViewModal(props) {
@@ -25,19 +25,22 @@ function ViewModal(props) {
       </Modal.Header>
       <Modal.Body>
       <Row>
-        <ViewButtons id={id} buttonId={props.buttonId}/>
+        <ViewButtonsAnd id={id} buttonId={props.buttonId} counts={props.counts}/>
       </Row>
       <Row>
-          <Col><p>Combination:</p></Col>
-          <Col>{props.content}</Col>
+          <p>Combination: {props.content}</p>
         </Row>
         <Row>
-          <Col><p>Sets of 8:</p></Col>
-          <Col>{props.sets}</Col>
+          <p>Sets of 8: {props.sets}</p>
         </Row>
         <Row>
-          <Col><p>Button Id:</p></Col>
-          <Col>{props.buttonId}</Col>
+          <p>Notes: {props.buttonId}</p>
+        </Row>
+        <Row>
+          <p>Category: {props.category}</p>
+        </Row>
+        <Row>
+          <p>Count Type: {props.counts}</p>
         </Row>
       </Modal.Body>
       <Modal.Footer>

@@ -1,12 +1,12 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CreateModal from "./CreateModal"
+import CreateModal2 from "./CreateModal2"
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import ViewModal from "./ViewModal";
 import '../custom.scss';
-import ViewButtons from './ViewButtons';
+import ViewButtonsAnd from './ViewButtonsAnd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -23,7 +23,7 @@ function ComboCard(props) {
     <Col>
     <Card>
       <Card.Body>
-      <ViewButtons id={cardId} buttonId={props.buttonId}/>
+      <ViewButtonsAnd id={cardId} buttonId={props.buttonId} counts={props.counts}/>
       <Card.Title><h2>{props.title}</h2></Card.Title>
     <>
     <Row>
@@ -37,7 +37,7 @@ function ComboCard(props) {
       }</Col>
       </Row>
       {cardId === 0 ? 
-      <CreateModal
+      <CreateModal2
         show={modalShow}
         onHide={() => setModalShow(false)}
         submitCard = {props.newCard}
@@ -49,6 +49,9 @@ function ComboCard(props) {
         content={props.content}
         buttonId={props.buttonId}
         sets={props.setNum}
+        notes={props.notes}
+        category={props.category}
+        counts={props.counts}
         show={modalShow}
         onHide={() => setModalShow(false)}
       />

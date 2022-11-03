@@ -38,6 +38,9 @@ function Combinations() {
           newCard={addCard}
           onDelete={deleteCard}
           setNum={cardItem.setNum}
+          notes={cardItem.notes}
+          counts={cardItem.counts}
+          category={cardItem.category}
         />
       );
     })}

@@ -30,8 +30,8 @@ const backId = "back" + props.id;
       <Container>
          <Row className="row" >
       <Col></Col>
-        <Col className="textHeading">
-         <Button variant="light" id={frontId}>Front</Button>
+        <Col className="textHeading align-items-center">
+         <Button variant="light" id={frontId} >Front</Button>
         </Col>
         <Col></Col> 
       </Row>
