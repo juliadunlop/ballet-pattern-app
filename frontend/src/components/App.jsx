@@ -5,6 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Combinations from "./Combinations";
 import SignIn from "./SignIn";
+import Combinations2 from "./Combinations2";
 
 function App() {
   return <Router>
@@ -12,6 +13,7 @@ function App() {
     <Routes>
     <Route exact path='/' element={<Home />} />
         <Route path='/combinations' element={<Combinations />} />
+        <Route path='/combinations2' element={<Combinations2 />} />
         <Route path='/signin' element={<SignIn />} />
     </Routes>
     <Footer />

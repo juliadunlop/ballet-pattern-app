@@ -9,6 +9,7 @@ import '../custom.scss';
 import ViewButtonsAnd from './ViewButtonsAnd';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import Box from '@mui/material/Box';
 
 function ComboCard(props) {
   const cardId = props.id;
@@ -23,7 +24,20 @@ function ComboCard(props) {
     <Col>
     <Card>
       <Card.Body>
+      {props.id===0 ? <Box
+        sx={{
+          width: 270,
+          height: 200,
+          backgroundColor: 'primary.dark',
+          '&:hover': {
+            backgroundColor: 'primary.main',
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}/>
+      :
       <ViewButtonsAnd id={cardId} buttonId={props.buttonId} counts={props.counts}/>
+      }
+      
       <Card.Title><h2>{props.title}</h2></Card.Title>
     <>
     <Row>
@@ -35,7 +49,8 @@ function ComboCard(props) {
         <DeleteIcon />
       </Button>
       }</Col>
-      </Row>
+    </Row>
+
       {cardId === 0 ? 
       <CreateModal2
         show={modalShow}
@@ -50,10 +65,10 @@ function ComboCard(props) {
         buttonId={props.buttonId}
         sets={props.setNum}
         notes={props.notes}
-        category={props.category}
         counts={props.counts}
         show={modalShow}
         onHide={() => setModalShow(false)}
+        filters={props.filters}
       />
       }
     </>

@@ -37,10 +37,10 @@ function ViewModal(props) {
           <p>Notes: {props.buttonId}</p>
         </Row>
         <Row>
-          <p>Category: {props.category}</p>
+          <p>Counts: {props.counts}</p>
         </Row>
         <Row>
-          <p>Count Type: {props.counts}</p>
+          <p>Filters: {props.filters}</p>
         </Row>
       </Modal.Body>
       <Modal.Footer>

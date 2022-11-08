@@ -7,9 +7,11 @@ import Button from 'react-bootstrap/Button';
 
 function ViewButtons(props) {
 const frontId = "front" + props.id;
-const sideId = "side" + props.id;
 const insideId = "inside" + props.id;
+const fifthFrontId = "fifthFront" + props.id;
 const firstId = "first" + props.id;
+const fifthBackId = "fifthBack" + props.id;
+const sideId = "side" + props.id;
 const backId = "back" + props.id;
 
     function playCombo(){
@@ -49,9 +51,9 @@ const backId = "back" + props.id;
         <Button variant="light" id={insideId}>Inside</Button>
       </Col>
       <Col className="textHeading">
-        <Row><Button variant="light" id={firstId}>Fifth Front</Button></Row>
+        <Row><Button variant="light" id={fifthFrontId}>Fifth Front</Button></Row>
         <Row><Button variant="light" id={firstId}>First</Button></Row>
-        <Row><Button variant="light" id={firstId}>Fifth Back</Button></Row>
+        <Row><Button variant="light" id={fifthBackId}>Fifth Back</Button></Row>
       </Col>
       <Col className="textHeading">
         <Button variant="light" id={sideId}>Side</Button>

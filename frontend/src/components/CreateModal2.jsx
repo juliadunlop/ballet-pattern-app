@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
@@ -13,36 +13,18 @@ function CreateModal2(props) {
     buttonId: "",
     setNum: "",
     notes: "",
-    category: "",
-    counts: ""
+    counts: "",
+    filters:""
   });
   const [combo, setCombo] = useState([]);
   const [count, setCount] = useState(1);
   const [sets, setSet] = useState(1);
   const [comboId, setComboId] = useState([]);
   const [countId, setCountId] = useState([]);
+  const [filter, setFilter] = useState([]);
 
-function handleClick(event) {
-  const {name, id, value} = event.target;
-  if(count > 7) {
-    setCount(1);
-    setSet(sets+1);
-    setCombo(prevCombo => {
-      return[...prevCombo, [name]]
-    });
-
-    setComboId(prevComboId => {
-        return[...prevComboId, [id]]
-      });
-    
-      setCountId(prevCountId => {
-        return[...prevCountId, [value]]
-      });
-
-  
-  } else {
-
-    setCount(count+1)
+  function handleClick(event) {
+    const {name, id, value} = event.target;
 
     setCombo(prevCombo => {
       return[...prevCombo, [name]]
@@ -51,11 +33,19 @@ function handleClick(event) {
     setComboId(prevComboId => {
       return[...prevComboId, [id]]
     });
-
+  
     setCountId(prevCountId => {
       return[...prevCountId, [value]]
     });
-  }
+
+    if(value === "And") {
+      console.log("and");
+    } else if (count > 7) {
+      setCount(1);
+      setSet(sets+1);
+    } else {
+      setCount(count+1)
+    }
   }
 
   function handleChange(event) {
@@ -69,11 +59,22 @@ function handleClick(event) {
     });
   }
 
+  function checkboxClick (event) {
+    const {id} = event.target;
+    console.log([id]);
+
+    setFilter(prevFilter => {
+      return[...prevFilter, [id]]
+    });
+  }
+
+
   function submitCombo(event){
     finalCombo.setNum = sets-1;
     finalCombo.content = combo;
     finalCombo.buttonId = comboId;
     finalCombo.counts = countId;
+    finalCombo.filters = filter;
     props.submitCard(finalCombo);
     setFinalCombo({
       title: "",
@@ -81,14 +82,15 @@ function handleClick(event) {
       buttonId: "",
       setNum: "",
       notes: "",
-      category: "",
-      countId: ""
+      countId: "",
+      filters: "",
     });
     setCombo([]);
     setComboId([]);
     setCountId([]);
     setCount(1);
     setSet(1);
+    setFilter([]);
     props.onHide();
     event.preventDefault();
   }
@@ -100,15 +102,10 @@ function handleClick(event) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
+    <Form>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          New Combination
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-      <Form> 
-      <Row>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control 
         onChange={handleChange} 
         placeholder="Combination Name" 
@@ -116,18 +113,10 @@ function handleClick(event) {
         name="title"
         />
     </Form.Group>
-      </Row>
-      
-      <Row >
-        <Col>
-          <Form.Select aria-label="Category" value={finalCombo.category} onChange={handleChange} name="category" >
-            <option>Combination Category</option>
-            <option value="1">Tendue from First</option>
-            <option value="2">Tendue from Fifth</option>
-            <option value="3">Degage</option>
-          </Form.Select>
-        </Col>
-      </Row>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      <h3>Create</h3>
       
       <Row className="row" >
       <Col></Col>
@@ -188,10 +177,10 @@ function handleClick(event) {
             </Row>
             <Row>
               <Col>
-                <Button onClick={handleClick} name=" Fifth Front" id="Front" value="Count" variant="outline-secondary">{count}</Button>
+                <Button onClick={handleClick} name=" Fifth Front" id="fifthFront" value="Count" variant="outline-secondary">{count}</Button>
               </Col>
               <Col>
-                <Button onClick={handleClick} name=" Fifth Front" id="Front" value="And" variant="outline-secondary">And</Button>
+                <Button onClick={handleClick} name=" Fifth Front" id="fifthFront" value="And" variant="outline-secondary">And</Button>
               </Col>
             </Row>
           </Row>
@@ -281,6 +270,7 @@ function handleClick(event) {
 
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control 
+        placeholder="Combination"
         onChange={handleChange} 
         value={combo} 
         name="content" />
@@ -288,24 +278,43 @@ function handleClick(event) {
 
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Control 
+        placeholder="Counts"
         onChange={handleChange} 
         value={countId}  />
       </Form.Group>
 
-      <Row>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <h3>Filters</h3>
+        <Form.Check inline type="checkbox" label="Beginner" id="beginner" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Intermediate" onClick={checkboxClick} />
+        <Form.Check inline type="checkbox" label="Advanced" onClick={checkboxClick} />
+        <Form.Check inline type="checkbox" label="Brain Teaser" onClick={checkboxClick} />
+        <Form.Check inline type="checkbox" label="Warm Up"  onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="From First" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="From Fifth" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Tendue" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Degage" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Ronde Jambe" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Adagio" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Frappe" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Grande Battement" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Pas de Cheval" onClick={checkboxClick}/>
+        <Form.Check inline type="checkbox" label="Pike" onClick={checkboxClick}/>
+      </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Control 
           value={finalCombo.notes} 
           placeholder="Notes" 
           name="notes"
           onChange={handleChange} 
+          style={{ height: '100px'}}
           />
-        </Form.Group>
-      </Row>
-
-    </Form>
+      </Form.Group>
 
       </Modal.Body>
+
+      </Form>
       <Modal.Footer>
         <Button variant="light" onClick={submitCombo}><CheckIcon /></Button>
       </Modal.Footer>
